@@ -11,7 +11,7 @@ class KNN():
         count = np.bincount(labels.astype("int"))
         return count.argmax()
     
-    def predict(self, x_train, y_train, x_test):
+    def predict(self, x_test, x_train, y_train):
         y_pred = np.empty(x_test.shape[0])
         for i, sample in enumerate(x_test):
             index = np.argsort([euclidean_distance(sample, x) for x in x_train])[:self.k]
