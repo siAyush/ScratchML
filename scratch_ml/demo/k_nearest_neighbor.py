@@ -13,14 +13,11 @@ def main():
     y = data.target
     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.30)
 
-    clf = KNN(k=5)
-    y_pred = clf.predict(x_test, x_train, y_train)
-    
+    knn = KNN(k=5)
+    y_pred = knn.predict(x_test, x_train, y_train)
     accuracy = accuracy_score(y_test, y_pred)
-
     print ("Accuracy:", accuracy)
+
 
 if __name__ == "__main__":
     main()
-
-
