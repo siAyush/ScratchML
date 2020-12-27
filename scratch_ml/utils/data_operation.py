@@ -41,3 +41,40 @@ def train_test_split(x, y, test_size=0.25, shuffel=True, seed=None):
     y_train, y_test = y[:split_i], y[split_i:]
        
     return x_train, x_test, y_train, y_test
+
+
+def mean_squared_error(y_true, y_pred):
+    """Calculate the mean squared error"""
+    mse = np.mean(np.power(y_true - y_pred, 2))
+    return mse
+
+
+def calculate_variance():
+    """Calculate the variance"""
+
+    
+def calculate_std_dev(x):
+    """ Calculate the standard deviations"""
+    std_dev = np.sqrt(calculate_variance(x))
+    return std_dev
+
+
+def covariance_matrix(x,y=None):
+    """Calculate the covariance matrix"""
+    if y is None:
+        y = x
+    n_samples = np.sahpe(x)[0]
+    matrix = ((1/(n_samples-1))*(x-x.mean(axis=0)).T.dot(y-y.mean(axix=0)))
+    return np.array(matrix, dtype=float)
+
+
+def correlation_matrix(x, y=None):
+    """Calculate the correlation matrix"""
+    if y is None:
+        y = x
+    n_samples = np.shape(x)[0]
+    covariance = ((1/(n_samples-1))*(x-x.mean(axis=0)).T.dot(y-y.mean(axix=0)))
+    std_dev_x = np.expand_dims(std_dev(x), 1)
+    std_dev_y = np.expand_dims(std_dev(y), 1)
+    matrix = np.divide(covariance, std_dev_x.T.dot(std_dev_y))
+    return np.array(matrix, dtype=float)
