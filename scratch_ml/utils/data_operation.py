@@ -22,6 +22,7 @@ def normalize(v):
        return v
     return v / norm
 
+
 def shuffel_data(x, y, seed=None):
     """Random shuffle of the data"""
     if seed:
@@ -30,7 +31,6 @@ def shuffel_data(x, y, seed=None):
     np.random.shuffle(index)
     return x[index], y[index]
     
-
 
 def train_test_split(x, y, test_size=0.25, shuffel=True, seed=None):
     """Split the data into train and test sets"""
@@ -51,8 +51,12 @@ def mean_squared_error(y_true, y_pred):
 
 def calculate_variance():
     """Calculate the variance"""
+    n_samples = np.shape(x)[0]
+    mean = np.ones(np.shape(x))*np.mean(axis=0)
+    variance = (1 / n_samples) * np.diag((x - mean).T.dot(x - mean)
+    return variance
 
-    
+
 def calculate_std_dev(x):
     """ Calculate the standard deviations"""
     std_dev = np.sqrt(calculate_variance(x))
