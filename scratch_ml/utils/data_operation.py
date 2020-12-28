@@ -49,11 +49,11 @@ def mean_squared_error(y_true, y_pred):
     return mse
 
 
-def calculate_variance():
+def calculate_variance(x):
     """Calculate the variance"""
+    mean = np.ones(np.shape(x)) * x.mean(0)
     n_samples = np.shape(x)[0]
-    mean = np.ones(np.shape(x))*np.mean(axis=0)
-    variance = (1 / n_samples) * np.diag((x - mean).T.dot(x - mean)
+    variance = (1 / n_samples) * np.diag((X - mean).T.dot(X - mean))
     return variance
 
 
@@ -67,8 +67,8 @@ def covariance_matrix(x,y=None):
     """Calculate the covariance matrix"""
     if y is None:
         y = x
-    n_samples = np.sahpe(x)[0]
-    matrix = ((1/(n_samples-1))*(x-x.mean(axis=0)).T.dot(y-y.mean(axix=0)))
+    n_samples = np.shape(x)[0]
+    matrix = ((1/(n_samples-1))*(x-x.mean(axis=0)).T.dot(y-y.mean(axis=0)))
     return np.array(matrix, dtype=float)
 
 

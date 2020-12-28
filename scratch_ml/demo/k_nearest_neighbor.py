@@ -1,9 +1,9 @@
 import numpy as np
 from sklearn import datasets
-import matplotlib.pyplot as plt
 
 from scratch_ml.supervised_learning import KNN
 from scratch_ml.utils import accuracy_score, train_test_split, euclidean_distance, normalize
+from scratch_ml.utils import Plot
 
 
 
@@ -17,6 +17,8 @@ def main():
     y_pred = knn.predict(x_test, x_train, y_train)
     accuracy = accuracy_score(y_test, y_pred)
     print ("Accuracy:", accuracy)
+
+    Plot().plot_2d(x_test, y_pred, title="K Nearest Neighbors", accuracy=accuracy, legend_label=data.target_names)
 
 
 if __name__ == "__main__":
