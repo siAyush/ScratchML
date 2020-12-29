@@ -52,3 +52,15 @@ class Plot():
         plt.ylabel('Principal Component 2')
         
         plt.show()
+    
+
+    def plot_3d(self, x ,y=None):
+        """Plot the dataset x in 3D using PCA"""
+        x_transformed = self._transfrom(x, dim=3)
+        x1 = X_transformed[:, 0]
+        x2 = X_transformed[:, 1]
+        x3 = X_transformed[:, 2]
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.scatter(x1, x2, x3, c=y)
+        plt.show()
