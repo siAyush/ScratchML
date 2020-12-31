@@ -22,7 +22,7 @@ class LogisticRegression():
         self._initialize_weight(x)
         y_pred = self.sigmoid(x.dot(self.weight))
         for i in range(n_iterations):
-            self.weight -= self.learning_rate * -(y - y_pred).dot(X)
+            self.weight -= self.learning_rate * -(y - y_pred).dot(x)
     
 
     def predict(self, x):
