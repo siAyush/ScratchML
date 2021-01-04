@@ -12,7 +12,7 @@ $ python setup.py install
 
 # How to Run Examples
 ```
-$ python scratch_ml/deomo/{filename}.py
+$ python scratch_ml/demo/{filename}.py
 ```
 
 Note : "filename" is replaced by the file you want to run.
