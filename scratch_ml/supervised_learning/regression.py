@@ -141,12 +141,12 @@ class PolynomialRidgeRegression(Regression):
 
 
     def fit(self, x, y):
-        x = normalize(polynomial_features(X, degree=self.degree))
+        x = normalize(polynomial_features(x, degree=self.degree))
         super(PolynomialRidgeRegression, self).fit(x, y)
 
 
-    def predict(self, X):
-        x = normalize(polynomial_features(X, degree=self.degree))
+    def predict(self, x):
+        x = normalize(polynomial_features(x, degree=self.degree))
         return super(PolynomialRidgeRegression, self).predict(x)
     
 
@@ -158,11 +158,11 @@ class ElasticNet(Regression):
         super(ElasticNet, self).__init__(n_iterations, learing_rate)
 
 
-    def fit(self, X, y):
-        X = normalize(polynomial_features(X, degree=self.degree))
-        super(ElasticNet, self).fit(X, y)
+    def fit(self, x, y):
+        x = normalize(polynomial_features(X, degree=self.degree))
+        super(ElasticNet, self).fit(x, y)
 
 
-    def predict(self, X):
-        X = normalize(polynomial_features(X, degree=self.degree))
-        return super(ElasticNet, self).predict(X)
+    def predict(self, x):
+        X = normalize(polynomial_features(x, degree=self.degree))
+        return super(ElasticNet, self).predict(x)
