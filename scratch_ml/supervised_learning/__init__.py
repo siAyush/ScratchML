@@ -1,3 +1,4 @@
 from .knn import KNN
 from .logistic_regression import LogisticRegression
-from .regression import LinearRegression, LassoRegression
+from .regression import LinearRegression, LassoRegression, RidgeRegression
+from .regression import PolynomialRegression, PolynomialRidgeRegression, ElasticNet
