@@ -84,19 +84,3 @@ def correlation_matrix(x, y=None):
     std_dev_y = np.expand_dims(std_dev(y), 1)
     matrix = np.divide(covariance, std_dev_x.T.dot(std_dev_y))
     return np.array(matrix, dtype=float)
-
-
-def polynomial_features(x, degree):
-    n_samples, n_features = np.shape(x)
-
-    def index_combinations():
-        combs = [combinations_with_replacement(range(n_features), i) for i in range(0, degree + 1)]
-        flat_combs = [item for sublist in combs for item in sublist]
-        return flat_combs
-    
-    combinations = index_combinations()
-    n_output_features = len(combinations)
-    x_new = np.empty((n_samples, n_output_features))
-    for i, index_combs in enumerate(combinations):  
-        x_new[:, i] = np.prod(x[:, index_combs], axis=1)
-    return x_new

@@ -89,24 +89,6 @@ class LinearRegression(Regression):
         super(LinearRegression, self).fit(x, y)
 
 
-class PolynomialRegression(Regression):
-    """PolynomialRegression"""
-    def __init__(self, degree, n_iterations=1000, learing_rate=0.01):
-        self.degree = degree
-        self.regularization = lambda x : 0
-        self.regularization.grad = lambda x : 0
-    
-    
-    def fit(self, x, y):
-        x = polynomial_features(x, degree=self.degree)
-        super(PolynomialRegression, self).fit(x, y)
-    
-
-    def predict(self, x):
-        x = polynomial_features(x, degree=self.degree)
-        super(PolynomialRegression, self).predict(x)
-        
-
 class LassoRegression(Regression):
     """Linear regression model with a  l1 regularization"""
     def __init__(self, reg_factor, n_iterations=1000, learing_rate=0.01):
@@ -120,24 +102,6 @@ class RidgeRegression(Regression):
         self.regularization = l2_regularization(alpha=reg_factor)
         super(RidgeRegression, self).__init__(n_iterations, learing_rate)
 
-
-class PolynomialRidgeRegression(Regression):
-    """Polynomial regression model with a  l2 regularization"""
-    def __init__(self, degree, reg_factor, n_iterations=3000, learing_rate=0.01, gradient_descent=True):
-        self.degree = degree
-        self.regularization = l2_regularization(alpha=reg_factor)
-        super(PolynomialRidgeRegression, self).__init__(n_iterations, learing_rate)
-
-
-    def fit(self, x, y):
-        x = normalize(polynomial_features(x, degree=self.degree))
-        super(PolynomialRidgeRegression, self).fit(x, y)
-
-
-    def predict(self, x):
-        x = normalize(polynomial_features(x, degree=self.degree))
-        return super(PolynomialRidgeRegression, self).predict(x)
-    
 
 class ElasticNet(Regression):
     """Regression where a combination of l1 and l2 regularization are used"""
