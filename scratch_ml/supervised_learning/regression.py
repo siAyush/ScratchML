@@ -28,20 +28,20 @@ class l2_regularization():
 
 
 class l1_l2_regularization():
-    """Regularization for Elastic Net Regression"""
-    def __init__(self, alpha_1, alpha_2):
-        self.alpha_1 = alpha_1
-        self.alpha_2 = alpha_2
-    
+    """ Regularization for Elastic Net Regression """
+    def __init__(self, alpha, l1_ratio=0.5):
+        self.alpha = alpha
+        self.l1_ratio = l1_ratio
+
     def __call__(self, w):
-        l1 = self.alpha_1 * np.linalg.norm(w)
-        l2 = self.alpha_2 * 0.5 * w.T.dot(w)
-        return l1 + l2
-    
+        l1_contr = self.l1_ratio * np.linalg.norm(w)
+        l2_contr = (1 - self.l1_ratio) * 0.5 * w.T.dot(w) 
+        return self.alpha * (l1_contr + l2_contr)
+
     def grad(self, w):
-        l1_contr = self.alpha_1 * np.sign(w)
-        l2_contr = self.alpha_2 * w
-        return l1_contr + l2_contr
+        l1_contr = self.l1_ratio * np.sign(w)
+        l2_contr = (1 - self.l1_ratio) * w
+        return self.alpha * (l1_contr + l2_contr) 
 
 
 class Regression():
@@ -109,21 +109,10 @@ class PolynomialRegression(Regression):
 
 class LassoRegression(Regression):
     """Linear regression model with a  l1 regularization"""
-    def __init__(self, degree, reg_factor, n_iterations=1000, learing_rate=0.01):
-        self.degree = degree
+    def __init__(self, reg_factor, n_iterations=1000, learing_rate=0.01):
         self.regularization = l1_regularization(alpha=reg_factor)
         super(LassoRegression, self).__init__(n_iterations, learing_rate)
-    
 
-    def fit(self, x, y):
-        x = normalize(polynomial_features(x, degree=self.degree))
-        super(LassoRegression, self).fit(x,y)
-    
-
-    def predict(self,x):
-        x = normalize(polynomial_features(x, degree=self.degree))
-        super(LassoRegression, self).predict(x)
-    
 
 class RidgeRegression(Regression):
     """Linear regression model with a  l2 regularization"""
@@ -152,17 +141,6 @@ class PolynomialRidgeRegression(Regression):
 
 class ElasticNet(Regression):
     """Regression where a combination of l1 and l2 regularization are used"""
-    def __init__(self, degree=1, reg_factor=0.05, l1_ratio=0.5, n_iterations=3000, learing_rate=0.01):
-        self.degree = degree
-        self.regularization = l1_l2_regularization(alpha_1=0.5, alpha_2=0.5)
+    def __init__(self, reg_factor=0.05, l1_ratio=0.5, n_iterations=3000, learing_rate=0.01):
+        self.regularization = l1_l2_regularization(alpha=reg_factor, l1_ratio=l1_ratio)
         super(ElasticNet, self).__init__(n_iterations, learing_rate)
-
-
-    def fit(self, x, y):
-        x = normalize(polynomial_features(X, degree=self.degree))
-        super(ElasticNet, self).fit(x, y)
-
-
-    def predict(self, x):
-        X = normalize(polynomial_features(x, degree=self.degree))
-        return super(ElasticNet, self).predict(x)

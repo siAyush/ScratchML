@@ -19,5 +19,5 @@ Note : "filename" is replaced by the file you want to run.
 
 Example: 
 ```
-$ python scratch_ml/deomo/k_nearest_neighbor.py
+$ python scratch_ml/demo/k_nearest_neighbor.py
 ```
