@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from scratch_ml.utils import normalize, polynomial_features
+from scratch_ml.utils import normalize
 
 
 class l1_regularization():
@@ -83,10 +83,6 @@ class LinearRegression(Regression):
         self.regularization = lambda x : 0
         self.regularization.grad = lambda x : 0
         super(LinearRegression, self).__init__(n_iterations=n_iterations, learing_rate=learing_rate)
-    
-
-    def fit(self, x, y):
-        super(LinearRegression, self).fit(x, y)
 
 
 class LassoRegression(Regression):
@@ -105,6 +101,6 @@ class RidgeRegression(Regression):
 
 class ElasticNet(Regression):
     """Regression where a combination of l1 and l2 regularization are used"""
-    def __init__(self, reg_factor=0.05, l1_ratio=0.5, n_iterations=3000, learing_rate=0.01):
+    def __init__(self, reg_factor=0.05, l1_ratio=0.5, n_iterations=1000, learing_rate=0.01):
         self.regularization = l1_l2_regularization(alpha=reg_factor, l1_ratio=l1_ratio)
         super(ElasticNet, self).__init__(n_iterations, learing_rate)
