@@ -80,7 +80,19 @@ def correlation_matrix(x, y=None):
         y = x
     n_samples = np.shape(x)[0]
     covariance = ((1/(n_samples-1))*(x-x.mean(axis=0)).T.dot(y-y.mean(axix=0)))
-    std_dev_x = np.expand_dims(std_dev(x), 1)
-    std_dev_y = np.expand_dims(std_dev(y), 1)
+    std_dev_x = np.expand_dims(calculate_std_dev(x), 1)
+    std_dev_y = np.expand_dims(calculate_std_dev(y), 1)
     matrix = np.divide(covariance, std_dev_x.T.dot(std_dev_y))
     return np.array(matrix, dtype=float)
+
+
+def calculate_entropy(y):
+    """Calculate the entropy"""
+    log2 = lambda x : math.log(x) / math.log(2)
+    unique_labels = np.unique(y)
+    entropy = 0
+    for label in unique_labels:
+        count = len(y[y == label])
+        p = count / len(y)
+        entropy += -p * log2(p)
+    return entropy
