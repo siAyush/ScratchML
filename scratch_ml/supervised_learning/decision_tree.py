@@ -1,5 +1,5 @@
 import numpy as np
-from scratch_ml.utils import calculate_entropy, divide_on_feature
+from scratch_ml.utils import calculate_entropy, divide_on_feature, calculate_variance
 
 
 # Class of RegressionTree and ClassificationTree
@@ -14,7 +14,7 @@ class DecisionNode():
 
 
 # Class of RegressionTree and ClassificationTree
-class DecisionTree(object):
+class DecisionTree():
     """Super class of RegressionTree and ClassificationTree.
 
     Parameters:
@@ -105,7 +105,7 @@ class DecisionTree(object):
             return tree.value
         feature_value = x[tree.feature_i]
         branch = tree.false_branch
-        
+
         if isinstance(feature_value, int) or isinstance(feature_value, float):
             if feature_value >= tree.threshold:
                 branch = tree.true_branch
@@ -145,7 +145,6 @@ class ClassificationTree(DecisionTree):
         info_gain = entropy - p * \
             calculate_entropy(y1) - (1 - p) * \
             calculate_entropy(y2)
-
         return info_gain
 
 
@@ -164,3 +163,24 @@ class ClassificationTree(DecisionTree):
         self._impurity_calculation = self._calculate_information_gain
         self._leaf_value_calculation = self._majority_vote
         super(ClassificationTree, self).fit(X, y)
+
+
+class RegressionTree(DecisionTree):
+    def _calculate_variance_reduction(self, y, y1, y2):
+        total_var = calculate_variance(y)
+        var_1 = calculate_variance(y1)
+        var_2 = calculate_variance(y2)
+        frac_1 = len(y1) / len(y)
+        frac_2 = len(y2) / len(y)
+        variance_reduction = total_var - (frac_1 * var_1 + frac_2 * var_2)
+        return sum(variance_reduction)
+    
+    def _mean_of_y(self, y):
+        mean = np.mean(y, axis=0)
+        return mean
+    
+
+    def fit(self, X, y):
+        self._impurity_calculation = self._calculate_variance_reduction
+        self._leaf_value_calculation = self._mean_of_y
+        super(RegressionTree, self).fit(X, y)
