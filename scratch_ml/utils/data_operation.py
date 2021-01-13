@@ -120,4 +120,4 @@ def divide_on_feature(x, feature_i, threshold):
     x_1 = np.array([sample for sample in x if split_func(sample)])
     x_2 = np.array([sample for sample in x if not split_func(sample)])
 
-    return np.array([x_1, x_2])
+    return np.array([x_1, x_2], dtype=object)
