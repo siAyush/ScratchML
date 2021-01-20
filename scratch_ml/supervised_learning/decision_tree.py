@@ -175,6 +175,7 @@ class RegressionTree(DecisionTree):
         variance_reduction = total_var - (frac_1 * var_1 + frac_2 * var_2)
         return sum(variance_reduction)
     
+    
     def _mean_of_y(self, y):
         mean = np.mean(y, axis=0)
         return mean

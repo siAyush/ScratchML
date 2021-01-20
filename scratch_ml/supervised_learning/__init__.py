@@ -4,3 +4,4 @@ from .regression import LinearRegression, LassoRegression, RidgeRegression, Elas
 from .linear_discriminant_analysis import LDA
 from .naive_bayes import NaiveBayes
 from .decision_tree import ClassificationTree, RegressionTree
+from .adaboost import Adaboost

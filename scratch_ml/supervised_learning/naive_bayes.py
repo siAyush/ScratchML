@@ -4,8 +4,6 @@ import math
 
 class NaiveBayes():
     """The Gaussian Naive Bayes classifier"""
-
-
     def _calculate_likelihood(self, mean, var, x):
         """Gaussian likelihood of the data x given mean and var"""
         eps = 1e-4 
