@@ -7,20 +7,15 @@ import matplotlib.pyplot as plt
 
 def main():
     x, y = make_regression(n_samples=200, n_features=1, noise=20)
-    
     x_train, x_test, y_train, y_test = train_test_split(x, y)
 
     model = RegressionTree()
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
-
     y_pred_line = model.predict(x)
 
-    # Color map
     cmap = plt.get_cmap('plasma')
-
     mse = mean_squared_error(y_test, y_pred)
-
     print ("Mean Squared Error:", mse)
 
     # Plot the results
