@@ -22,6 +22,7 @@ Supervised Learning
 * [Logistic Regression](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/logistic_regression.py)
 * [Naive Bayes](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/naive_bayes.py)
 * [Ridge Regression](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/regression.py)
+* [XGBoost](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/xgboost.py)
 
 
 ## Installation
@@ -55,3 +56,10 @@ $ python3 scratch_ml/demo/k_nearest_neighbor.py
 $ python3 scratch_ml/demo/linear_regression.py 
 ```
 ![Linear Regression](./images/linear_regression.png)
+
+
+## Gradient Boosting Classifier
+```
+$ python3 scratch_ml/demo/gradient_boosting_classifier.py
+```
+![Gradient Boosting Classifier](./images/gradient_boosting_classifier.png)
