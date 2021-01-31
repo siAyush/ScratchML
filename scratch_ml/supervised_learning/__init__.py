@@ -6,3 +6,4 @@ from .naive_bayes import NaiveBayes
 from .decision_tree import ClassificationTree, RegressionTree
 from .adaboost import Adaboost
 from .gradient_boosting import GradientBoostingRegressor, GradientBoostingClassifier
+from .xgboost import XGBoost

@@ -4,8 +4,8 @@
 ## About 
 
 Implementations of the Machine Learning models and algorithms from scratch using NumPy only.
-The purpose of this project is to learn the internal wroking of algorithms not to 
-not to produce optimized algorithms.
+The purpose of this project is to learn the internal working of algorithms not to produce 
+optimized algorithms.
 
 
 ## Implementations
@@ -27,31 +27,31 @@ Supervised Learning
 ## Installation
 
 ```
-$ git clone https://github.com/siAyush/Scratch_ML.git
-$ cd Scratch_ML
-$ python setup.py install
+$ git clone https://github.com/siAyush/ScratchML.git
+$ cd ScratchML
+$ python3 setup.py install
 ```
 
 
 ## Run Examples
 
 ```
-$ python scratch_ml/demo/{filename}.py
+$ python3 scratch_ml/demo/{filename}.py
 ```
 
 Note : "filename" is replaced by the file you want to run.
 
 Example: 
 ```
-$ python scratch_ml/demo/k_nearest_neighbor.py
+$ python3 scratch_ml/demo/k_nearest_neighbor.py
 ```
 
 
 ## Examples
 
 ## Linear Regression
+
 ```
 $ python3 scratch_ml/demo/linear_regression.py 
 ```
-
 ![Linear Regression](./images/linear_regression.png)

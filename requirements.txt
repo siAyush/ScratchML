@@ -5,4 +5,3 @@ pandas
 cvxopt
 scipy
 progressbar33
-terminaltables

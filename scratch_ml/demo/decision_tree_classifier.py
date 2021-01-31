@@ -1,6 +1,5 @@
 import numpy as np
 from sklearn import datasets
-
 from scratch_ml.utils import Plot , train_test_split, accuracy_score
 from scratch_ml.supervised_learning import ClassificationTree
 

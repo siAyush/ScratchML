@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt 
-
 from scratch_ml.utils import covariance_matrix
 
 
