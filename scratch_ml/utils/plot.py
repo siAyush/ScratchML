@@ -1,6 +1,11 @@
 import numpy as np
+import progressbar
 import matplotlib.pyplot as plt 
 from scratch_ml.utils import covariance_matrix
+
+
+bar_widget = ['Training: ', progressbar.Percentage(), ' ', 
+              progressbar.Bar(marker="-", left="[", right="]"), ' ', progressbar.ETA()]
 
 
 class Plot():

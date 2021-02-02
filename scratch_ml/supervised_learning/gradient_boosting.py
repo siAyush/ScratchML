@@ -1,11 +1,7 @@
 import numpy as np
 import progressbar
 from scratch_ml.supervised_learning import RegressionTree
-from scratch_ml.utils import SquareLoss, CrossEntropy, to_categorical
-
-
-bar_widget = ['Training: ', progressbar.Percentage(), ' ', 
-              progressbar.Bar(marker="-", left="[", right="]"), ' ', progressbar.ETA()]
+from scratch_ml.utils import SquareLoss, CrossEntropy, to_categorical, bar_widget
 
 
 class  GradientBoosting():
