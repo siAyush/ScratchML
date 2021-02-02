@@ -50,7 +50,7 @@ $ python3 scratch_ml/demo/k_nearest_neighbor.py
 
 ## Examples
 
-## Linear Regression
+### Linear Regression
 
 ```
 $ python3 scratch_ml/demo/linear_regression.py 
@@ -58,7 +58,7 @@ $ python3 scratch_ml/demo/linear_regression.py
 ![Linear Regression](./images/linear_regression.png)
 
 
-## Gradient Boosting Classifier
+### Gradient Boosting Classifier
 ```
 $ python3 scratch_ml/demo/gradient_boosting_classifier.py
 ```

@@ -5,5 +5,5 @@ from .linear_discriminant_analysis import LDA
 from .naive_bayes import NaiveBayes
 from .decision_tree import ClassificationTree, RegressionTree
 from .adaboost import Adaboost
-from .gradient_boosting import GradientBoostingRegressor, GradientBoostingClassifier
+from .gradient_boosting import GradientBoostingRegressor, GradientBoostingClassifier, DecisionTree
 from .xgboost import XGBoost
