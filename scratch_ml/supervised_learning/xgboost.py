@@ -34,10 +34,12 @@ class XGBoostRegressionTree(DecisionTree):
         y, y_pred = y[:, :col], y[:, col:]
         return y, y_pred
 
+
     def _gain(self, y, y_pred):
         nominator = np.power((y * self.loss.gradient(y, y_pred)).sum(), 2)
         denominator = self.loss.hess(y, y_pred).sum()
         return 0.5 * (nominator / denominator)
+
 
     def _gain_by_taylor(self, y, y1, y2):
         y, y_pred = self._split(y)
@@ -48,12 +50,14 @@ class XGBoostRegressionTree(DecisionTree):
         gain = self._gain(y, y_pred)
         return true_gain + false_gain - gain
 
+
     def _approximate_update(self, y):
         y, y_pred = self._split(y)
         gradient = np.sum(y * self.loss.gradient(y, y_pred), axis=0)
         hessian = np.sum(self.loss.hess(y, y_pred), axis=0)
         update_approximation =  gradient / hessian
         return update_approximation
+
 
     def fit(self, x, y):
         self._impurity_calculation = self._gain_by_taylor
@@ -82,6 +86,7 @@ class XGBoost(object):
                     loss=self.loss)
             self.trees.append(tree)
 
+
     def fit(self, x, y):
         y = to_categorical(y)
         y_pred = np.zeros(np.shape(y))
@@ -91,6 +96,7 @@ class XGBoost(object):
             tree.fit(x, y_and_pred)
             update_pred = tree.predict(x)
             y_pred -= np.multiply(self.learning_rate, update_pred)
+
 
     def predict(self, x):
         y_pred = None
