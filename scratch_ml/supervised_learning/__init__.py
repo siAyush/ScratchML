@@ -7,3 +7,4 @@ from .decision_tree import ClassificationTree, RegressionTree, DecisionTree
 from .adaboost import Adaboost
 from .gradient_boosting import GradientBoostingRegressor, GradientBoostingClassifier
 from .xgboost import XGBoost
+from .random_forest import RandomForest

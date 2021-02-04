@@ -3,6 +3,7 @@ from sklearn import datasets
 from scratch_ml.supervised_learning import XGBoost
 from scratch_ml.utils import Plot, train_test_split, accuracy_score
 
+
 def main():
     print ("XGBoost")
     data = datasets.load_iris()

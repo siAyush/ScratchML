@@ -65,7 +65,7 @@ class XGBoostRegressionTree(DecisionTree):
         super(XGBoostRegressionTree, self).fit(x, y)
 
     
-class XGBoost(object):
+class XGBoost():
     """The XGBoost classifier."""
     def __init__(self, n_estimators=200, learning_rate=0.001, min_samples_split=2,
                  min_impurity=1e-7, max_depth=2):

@@ -112,9 +112,13 @@ def divide_on_feature(x, feature_i, threshold):
 
 
 def to_categorical(x, n_col=None):
-    """ Onehot encoding of nominal values """
+    """Onehot encoding of nominal values"""
     if not n_col:
         n_col = np.amax(x)+1
     one_hot = np.zeros((x.shape[0], n_col))
     one_hot[np.arange(x.shape[0]), x] = 1
     return one_hot
+
+
+def get_random_subsets(x, y, n_subsets, replacements=True):
+     """Return random subsets with replacements of the data"""
