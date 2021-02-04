@@ -37,18 +37,19 @@ class  RandomForest():
             # select random subsets of the features
             idx = np.random.choice(range(n_features), size=self.max_features, replace=True)
             self.tree[i].feature_i = idx
-            x_subset = x_subset[:, :idx]
+            x_subset = x_subset[:, idx]
             self.tree[i].fit(x_subset, y_subset)
         
 
     def predict(self, x):
-        y_pred = np.empty(x.shape[0], len(self.tree))
+        y_preds = np.empty((x.shape[0], len(self.tree)))
         for i, tree in enumerate(self.tree):
             idx = tree.feature_i
-            prediction = tree.predict(x[:, idx])    # Make a prediction based on those features
-            y_pred[:, i] = prediction
-        # Select the most common class prediction
+            # Make a prediction based on those features
+            prediction = tree.predict(x[:, idx])
+            y_preds[:, i] = prediction
         y_pred = []
-        for prediction in y_pred:
-            y_pred.append(np.bincount(prediction.astype("int")).argmax())
+        # Select the most common class prediction
+        for sample_predictions in y_preds:
+            y_pred.append(np.bincount(sample_predictions.astype("int")).argmax())
         return y_pred

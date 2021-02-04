@@ -7,17 +7,17 @@ from scratch_ml.supervised_learning import ClassificationTree
 def main():
     print ("Classification Tree")
     data = datasets.load_iris()
-    X = data.data
+    x = data.data
     y = data.target
-    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    x_train, x_test, y_train, y_test = train_test_split(x, y)
 
     clf = ClassificationTree()
-    clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
+    clf.fit(x_train, y_train)
+    y_pred = clf.predict(x_test)
     accuracy = accuracy_score(y_test, y_pred)
     print ("Accuracy:", accuracy)
 
-    Plot().plot_2d(X_test, y_pred, title="Decision Tree", accuracy=accuracy, legend_label=data.target_names)
+    Plot().plot_2d(x_test, y_pred, title="Decision Tree", accuracy=accuracy, legend_label=data.target_names)
 
 
 if __name__ == "__main__":

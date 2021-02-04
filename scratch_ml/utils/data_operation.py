@@ -121,4 +121,20 @@ def to_categorical(x, n_col=None):
 
 
 def get_random_subsets(x, y, n_subsets, replacements=True):
-     """Return random subsets with replacements of the data"""
+    """Return random subsets with replacements of the data"""
+    n_samples = np.shape(x)[0]
+    # Concatenate x and y and do a random shuffle
+    x_y = np.concatenate((x, y.reshape((1, len(y))).T), axis=1)
+    np.random.shuffle(x_y)
+    subsets = []
+    # Uses 50% of training samples without replacements
+    subsample_size = int(n_samples // 2)
+    if replacements:
+        subsample_size = n_samples      # 100% with replacements
+    for _ in range(n_subsets):
+        idx = np.random.choice(range(n_samples), size=np.shape(range(subsample_size)), 
+                               replace=replacements)
+        x = x_y[idx][:, :-1]
+        y = x_y[idx][:, -1]
+        subsets.append([x, y])
+    return subsets
