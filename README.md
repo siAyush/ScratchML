@@ -25,6 +25,9 @@ Supervised Learning
 * [Ridge Regression](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/regression.py)
 * [XGBoost](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/xgboost.py)
 
+Unsupervised Learning
+* [K Means](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/unsupervised_learning/k_menas.py)
+
 
 ## Installation
 

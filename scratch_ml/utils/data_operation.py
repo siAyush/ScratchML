@@ -131,7 +131,7 @@ def get_random_subsets(x, y, n_subsets, replacements=True):
     subsample_size = int(n_samples // 2)
     if replacements:
         subsample_size = n_samples      # 100% with replacements
-    for _ in range(n_subsets):
+    for i in range(n_subsets):
         idx = np.random.choice(range(n_samples), size=np.shape(range(subsample_size)), 
                                replace=replacements)
         x = x_y[idx][:, :-1]
