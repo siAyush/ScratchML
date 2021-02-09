@@ -7,10 +7,10 @@ from scratch_ml.utils import Sigmoid, bar_widget, SquareLoss
 class Perceptron():
     """The Perceptron is one of the simplest neural network architectures.
        One layer neural network classifier."""
-    def __init__(self, n_iterations=20000, activation_function=Sigmoid, loss=SquareLoss, learning_rate=0.01):
+    def __init__(self, n_iterations=2000, activation_function=Sigmoid, loss=SquareLoss, learning_rate=0.01):
         self.n_iterations = n_iterations
-        self.activation_function = activation_function
-        self.loss = loss
+        self.activation_function = activation_function()
+        self.loss = loss()
         self.learning_rate = learning_rate
         self.progressbar = progressbar.ProgressBar(bar_widget)
 
