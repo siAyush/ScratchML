@@ -5,7 +5,7 @@ from scratch_ml.utils import covariance_matrix
 
 
 bar_widget = ['Training: ', progressbar.Percentage(), ' ', 
-              progressbar.Bar(marker="-", left="[", right="]"), ' ', progressbar.ETA()]
+              progressbar.Bar(marker="#", left="[", right="]"), ' ', progressbar.ETA()]
 
 
 class Plot():

@@ -12,7 +12,6 @@ def main():
 
     p = Plot()
     p.plot_2d(x, y_pred, title="K-Means Clustering")
-    p.plot_2d(x, y, title="Actual Clustering")
 
 
 if __name__ == "__main__":
