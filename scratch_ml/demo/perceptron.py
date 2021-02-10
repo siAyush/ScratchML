@@ -6,6 +6,7 @@ from scratch_ml.utils import train_test_split, normalize, to_categorical, accura
 
 
 def main():
+    print("Perceptron")
     data = datasets.load_digits()
     x = normalize(data.data)
     y = data.target

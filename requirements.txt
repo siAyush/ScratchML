@@ -2,6 +2,5 @@ matplotlib
 numpy
 sklearn
 pandas
-cvxopt
 scipy
 progressbar33

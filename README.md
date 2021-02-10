@@ -29,7 +29,7 @@ Unsupervised Learning
 * [K Means](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/unsupervised_learning/k_means.py)
 
 Deep Learning
-* [Perceptron](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deepl_learning/perceptron.py)
+* [Perceptron](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deep_learning/perceptron.py)
 
 
 ## Installation
