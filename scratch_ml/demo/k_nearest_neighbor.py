@@ -8,6 +8,7 @@ from scratch_ml.utils import Plot
 
 
 def main():
+    print("K Nearest Neighbors")
     data = datasets.load_iris()
     X = normalize(data.data)
     y = data.target

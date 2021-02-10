@@ -6,6 +6,7 @@ from scratch_ml.supervised_learning import LogisticRegression
 from scratch_ml.utils import normalize, train_test_split, accuracy_score
 
 def main():
+    print("Logistic Regression")
     data = datasets.load_iris()
     # using two class only
     x = normalize(data.data[data.target != 0])

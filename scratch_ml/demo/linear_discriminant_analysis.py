@@ -7,6 +7,7 @@ from scratch_ml.utils import normalize, train_test_split, Plot, accuracy_score
 
 
 def main():
+    print("Linear Discriminant Analysis")
     data = datasets.load_iris()
     x = data.data
     y = data.target

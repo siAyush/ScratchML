@@ -5,6 +5,7 @@ from scratch_ml.supervised_learning import NaiveBayes
 
 
 def main():
+    print("Naive Bayes")
     data = datasets.load_digits()
     x = normalize(data.data)
     y = data.target

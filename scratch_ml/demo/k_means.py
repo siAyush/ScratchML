@@ -5,6 +5,7 @@ from scratch_ml.unsupervised_learning import KMeans
 
 
 def main():
+    print("KMeans")
     x, y = datasets.make_blobs()
 
     clf = KMeans(k=3)

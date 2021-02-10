@@ -4,8 +4,9 @@ from scratch_ml.supervised_learning import Adaboost
 from scratch_ml.utils import train_test_split, accuracy_score
 from scratch_ml.utils import Plot
 
-
+"
 def main():
+    print("Adaboost")
     data = datasets.load_digits()
     x = data.data
     y = data.target

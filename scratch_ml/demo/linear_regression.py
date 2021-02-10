@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def main():
+    print("Linear Regression")
     x, y = make_regression(n_samples=100, n_features=1, noise=30)
     x_train, x_test, y_train, y_test = train_test_split(x, y)
     
