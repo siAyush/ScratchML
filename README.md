@@ -27,6 +27,7 @@ Supervised Learning
 
 Unsupervised Learning
 * [K Means](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/unsupervised_learning/k_means.py)
+* [Principal Component Analysis](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/unsupervised_learning/principal_component_analysis.py)
 
 Deep Learning
 * [Perceptron](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deep_learning/perceptron.py)
