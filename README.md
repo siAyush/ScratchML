@@ -31,6 +31,7 @@ Unsupervised Learning
 
 Deep Learning
 * [Perceptron](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deep_learning/perceptron.py)
+* [MultilayerPerceptron](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deep_learning/multilayer_perceptron.py)
 
 
 ## Installation

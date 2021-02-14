@@ -9,3 +9,7 @@ class Sigmoid():
     def derivative(self, x):
         x = x.astype(float)
         return self.__call__(x) * (1 - self.__call__(x))
+
+
+class Softmax():
+    pass
