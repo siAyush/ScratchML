@@ -14,13 +14,38 @@ class  MultilayerPerceptron():
         self.loss = CrossEntropy()
     
 
-    def  initialize_weights(self, x, y):
-        pass 
+    def initialize_weights(self, x, y):
+        n_samples, n_features = np.shape(x)
+        n, n_outputs = np.shape(y)
+        # hidden layer 
+        limit   = 1 / math.sqrt(n_features)
+        self.w = np.random.uniform(-limit, limit, (n_features, self.n_hidden))
+        self.w0 =  np.zeros((1, self.n_hidden))
+        # output layer 
+        limit   = 1 / math.sqrt(self.n_hidden)
+        self.v = np.random.uniform(-limit, limit, (self.n_hidden, n_outputs))
+        self.v0 =  np.zeros((1, n_outputs))
 
 
     def fit(self, x, y):
-        pass
+        self.initialize_weights(x, y)
+        for i in range(self.n_iterations):
+            # forward pass
+            hidden_input = x.dot(self.w) + self.w0
+            hidden_output = self.hidden_activation(hidden_input)
+            output_layer_input = hidden_output.dot(self.v) + self.v0
+            y_pred = self.output_activation(output_layer_input)
+
+            # backward pass
+
+
+
+
 
 
     def predict(self, x):
-        pass
+        hidden_input = x.dot(self.w) + self.w0
+        hidden_output = self.hidden_activation(hidden_input)
+        output_layer_input = hidden_output.dot(self.v) + self.v0
+        y_pred = self.output_activation(output_layer_input)
+        return y_pred
