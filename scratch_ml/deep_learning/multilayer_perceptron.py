@@ -37,10 +37,20 @@ class  MultilayerPerceptron():
             y_pred = self.output_activation(output_layer_input)
 
             # backward pass
+            # grad. w.r.t input of output layer
+            grad_wrt_out_l_input = self.loss.gradient(y, y_pred) * self.output_activation.gradient(output_layer_input)
+            grad_v = hidden_output.T.dot(grad_wrt_out_l_input)
+            grad_v0 = np.sum(grad_wrt_out_l_input, axis=0, keepdims=True)
+            # grad. w.r.t input of hidden layer
+            grad_wrt_hidden_l_input = grad_wrt_out_l_input.dot(self.v.T) * self.hidden_activation.derivative(hidden_input)
+            grad_w = x.T.dot(grad_wrt_hidden_l_input)
+            grad_w0 = np.sum(grad_wrt_hidden_l_input, axis=0, keepdims=True)
 
-
-
-
+            # Update weights 
+            self.v  -= self.learning_rate * grad_v
+            self.v0 -= self.learning_rate * grad_v0
+            self.w  -= self.learning_rate * grad_w
+            self.w0 -= self.learning_rate * grad_w0
 
 
     def predict(self, x):
