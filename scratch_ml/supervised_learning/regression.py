@@ -46,9 +46,9 @@ class l1_l2_regularization():
 
 class Regression():
     """Base regression class"""
-    def __init__(self, n_iterations, learing_rate):
+    def __init__(self, n_iterations,   learning_rate):
         self.n_iterations = n_iterations
-        self.learing_rate = learing_rate
+        self.  learning_rate =   learning_rate
 
 
     def initialize_weights(self, n_features):
@@ -67,7 +67,7 @@ class Regression():
             mse = np.mean(0.5*(y-y_pred)**2 + self.regularization(self.weight))
             grad_weight = -(y-y_pred).dot(x) + self.regularization.grad(self.weight)
             # update the weights
-            self.weight -= self.learing_rate * grad_weight
+            self.weight -= self.  learning_rate * grad_weight
 
 
     def predict(self, x):
@@ -78,29 +78,29 @@ class Regression():
 
 class LinearRegression(Regression):
     """Linear Regression"""
-    def __init__(self, n_iterations=1000, learing_rate=0.01):
+    def __init__(self, n_iterations=1000,   learning_rate=0.01):
         # no regularization
         self.regularization = lambda x : 0
         self.regularization.grad = lambda x : 0
-        super(LinearRegression, self).__init__(n_iterations=n_iterations, learing_rate=learing_rate)
+        super(LinearRegression, self).__init__(n_iterations=n_iterations,   learning_rate=  learning_rate)
 
 
 class LassoRegression(Regression):
     """Linear regression model with a  l1 regularization"""
-    def __init__(self, reg_factor, n_iterations=1000, learing_rate=0.01):
+    def __init__(self, reg_factor, n_iterations=1000,   learning_rate=0.01):
         self.regularization = l1_regularization(alpha=reg_factor)
-        super(LassoRegression, self).__init__(n_iterations, learing_rate)
+        super(LassoRegression, self).__init__(n_iterations,   learning_rate)
 
 
 class RidgeRegression(Regression):
     """Linear regression model with a  l2 regularization"""
-    def __init__(self, reg_factor, n_iterations=1000, learing_rate=0.01):
+    def __init__(self, reg_factor, n_iterations=1000,   learning_rate=0.01):
         self.regularization = l2_regularization(alpha=reg_factor)
-        super(RidgeRegression, self).__init__(n_iterations, learing_rate)
+        super(RidgeRegression, self).__init__(n_iterations,   learning_rate)
 
 
 class ElasticNet(Regression):
     """Regression where a combination of l1 and l2 regularization are used"""
-    def __init__(self, reg_factor=0.05, l1_ratio=0.5, n_iterations=1000, learing_rate=0.01):
+    def __init__(self, reg_factor=0.05, l1_ratio=0.5, n_iterations=1000,   learning_rate=0.01):
         self.regularization = l1_l2_regularization(alpha=reg_factor, l1_ratio=l1_ratio)
-        super(ElasticNet, self).__init__(n_iterations, learing_rate)
+        super(ElasticNet, self).__init__(n_iterations,   learning_rate)
