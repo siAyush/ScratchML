@@ -5,6 +5,7 @@ from scratch_ml.utils import calculate_entropy, divide_on_feature, calculate_var
 # Class of RegressionTree and ClassificationTree
 class DecisionNode():
     """Class that represents a decision node or leaf in the decision tree"""
+
     def __init__(self, feature_i=None, threshold=None, value=None, true_branch=None, false_branch=None):
         self.feature_i = feature_i          # Index for the feature that is tested
         self.threshold = threshold          # Threshold value for feature
@@ -28,8 +29,9 @@ class DecisionTree():
     loss: function
         Loss function that is used for Gradient Boosting models to calculate impurity.
     """
+
     def __init__(self, min_samples_split=2, min_impurity=1e-7, max_depth=float("inf"), loss=None):
-        self.root = None  
+        self.root = None
         self.min_samples_split = min_samples_split
         self.min_impurity = min_impurity
         self.max_depth = max_depth
@@ -38,13 +40,11 @@ class DecisionTree():
         self.one_dim = None
         self.loss = loss
 
-
     def fit(self, X, y, loss=None):
         """ Build decision tree """
         self.one_dim = len(np.shape(y)) == 1
         self.root = self._build_tree(X, y)
-        self.loss=None
-
+        self.loss = None
 
     def _build_tree(self, X, y, current_depth=0):
         """ Recursive method which builds out the decision tree and splits X and respective y"""
@@ -77,25 +77,31 @@ class DecisionTree():
                         impurity = self._impurity_calculation(y, y1, y2)
                         if impurity > largest_impurity:
                             largest_impurity = impurity
-                            best_criteria = {"feature_i": feature_i, "threshold": threshold}
+                            best_criteria = {
+                                "feature_i": feature_i, "threshold": threshold}
                             best_sets = {
-                                "leftX": Xy1[:, :n_features],   # X of left subtree
-                                "lefty": Xy1[:, n_features:],   # y of left subtree
-                                "rightX": Xy2[:, :n_features],  # X of right subtree
-                                "righty": Xy2[:, n_features:]   # y of right subtree
-                                }
+                                # X of left subtree
+                                "leftX": Xy1[:, :n_features],
+                                # y of left subtree
+                                "lefty": Xy1[:, n_features:],
+                                # X of right subtree
+                                "rightX": Xy2[:, :n_features],
+                                # y of right subtree
+                                "righty": Xy2[:, n_features:]
+                            }
 
         if largest_impurity > self.min_impurity:
             # Build subtrees for the right and left branches
-            true_branch = self._build_tree(best_sets["leftX"], best_sets["lefty"], current_depth + 1)
-            false_branch = self._build_tree(best_sets["rightX"], best_sets["righty"], current_depth + 1)
-            return DecisionNode(feature_i=best_criteria["feature_i"], threshold=best_criteria["threshold"], 
-                                                       true_branch=true_branch, false_branch=false_branch)
+            true_branch = self._build_tree(
+                best_sets["leftX"], best_sets["lefty"], current_depth + 1)
+            false_branch = self._build_tree(
+                best_sets["rightX"], best_sets["righty"], current_depth + 1)
+            return DecisionNode(feature_i=best_criteria["feature_i"], threshold=best_criteria["threshold"],
+                                true_branch=true_branch, false_branch=false_branch)
 
         leaf_value = self._leaf_value_calculation(y)
 
         return DecisionNode(value=leaf_value)
-
 
     def predict_value(self, x, tree=None):
         """Do a recursive search down the tree and make a prediction"""
@@ -114,26 +120,24 @@ class DecisionTree():
 
         return self.predict_value(x, branch)
 
-
     def predict(self, X):
         """ Classify samples one by one and return the set of labels """
         y_pred = [self.predict_value(sample) for sample in X]
         return y_pred
-
 
     def print_tree(self, tree=None, indent=" "):
         """ Recursively print the decision tree """
         if not tree:
             tree = self.root
         if tree.value is not None:
-            print (tree.value)
+            print(tree.value)
         else:
-            print ("%s:%s? " % (tree.feature_i, tree.threshold))
+            print("%s:%s? " % (tree.feature_i, tree.threshold))
             # Print the true scenario
-            print ("%sT->" % (indent), end="")
+            print("%sT->" % (indent), end="")
             self.print_tree(tree.true_branch, indent + indent)
             # Print the false scenario
-            print ("%sF->" % (indent), end="")
+            print("%sF->" % (indent), end="")
             self.print_tree(tree.false_branch, indent + indent)
 
 
@@ -147,7 +151,6 @@ class ClassificationTree(DecisionTree):
             calculate_entropy(y2)
         return info_gain
 
-
     def _majority_vote(self, y):
         most_common = None
         max_count = 0
@@ -157,7 +160,6 @@ class ClassificationTree(DecisionTree):
                 most_common = label
                 max_count = count
         return most_common
-
 
     def fit(self, X, y):
         self._impurity_calculation = self._calculate_information_gain
@@ -174,12 +176,10 @@ class RegressionTree(DecisionTree):
         frac_2 = len(y2) / len(y)
         variance_reduction = total_var - (frac_1 * var_1 + frac_2 * var_2)
         return sum(variance_reduction)
-    
-    
+
     def _mean_of_y(self, y):
         mean = np.mean(y, axis=0)
         return mean
-    
 
     def fit(self, X, y):
         self._impurity_calculation = self._calculate_variance_reduction

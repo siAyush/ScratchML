@@ -1,9 +1,9 @@
 import numpy as np
 from sklearn import datasets
-
 from scratch_ml.utils import Plot
 from scratch_ml.supervised_learning import LogisticRegression
 from scratch_ml.utils import normalize, train_test_split, accuracy_score
+
 
 def main():
     print("Logistic Regression")
@@ -18,7 +18,7 @@ def main():
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
     accuracy = accuracy_score(y_test, y_pred)
-    print ("Accuracy:", accuracy)
+    print("Accuracy:", accuracy)
 
     # plot the results
     Plot().plot_2d(x_test, y_pred, title="Logistic Regression", accuracy=accuracy)

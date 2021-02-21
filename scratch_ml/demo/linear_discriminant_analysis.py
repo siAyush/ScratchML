@@ -22,9 +22,10 @@ def main():
 
     accuracy = accuracy_score(y_test, y_pred)
 
-    print ("Accuracy:", accuracy)
+    print("Accuracy:", accuracy)
 
     Plot().plot_2d(x_test, y_pred, title="LDA", accuracy=accuracy)
+
 
 if __name__ == "__main__":
     main()

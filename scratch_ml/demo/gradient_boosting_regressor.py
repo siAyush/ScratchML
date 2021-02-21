@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    print ("Gradient Boosting Regression")
+    print("Gradient Boosting Regression")
     x, y = make_regression(n_samples=200, n_features=1, noise=20)
     x_train, x_test, y_train, y_test = train_test_split(x, y)
 
@@ -16,7 +16,7 @@ def main():
 
     cmap = plt.get_cmap('plasma')
     mse = mean_squared_error(y_test, y_pred)
-    print ("Mean Squared Error:", mse)
+    print("Mean Squared Error:", mse)
 
     m1 = plt.scatter(366 * x_train, y_train, color=cmap(0.9), s=10)
     m2 = plt.scatter(366 * x_test, y_test, color=cmap(0.5), s=10)
@@ -25,7 +25,8 @@ def main():
     plt.title("MSE: %.2f" % mse, fontsize=10)
     plt.xlabel('X')
     plt.ylabel('Y')
-    plt.legend((m1, m2, m3), ("Training data", "Test data", "Prediction"), loc='lower right')
+    plt.legend((m1, m2, m3), ("Training data", "Test data",
+                              "Prediction"), loc='lower right')
     plt.show()
 
 

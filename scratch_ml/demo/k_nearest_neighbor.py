@@ -6,7 +6,6 @@ from scratch_ml.utils import accuracy_score, train_test_split, euclidean_distanc
 from scratch_ml.utils import Plot
 
 
-
 def main():
     print("K Nearest Neighbors")
     data = datasets.load_iris()
@@ -17,9 +16,10 @@ def main():
     knn = KNN(k=5)
     y_pred = knn.predict(x_test, x_train, y_train)
     accuracy = accuracy_score(y_test, y_pred)
-    print ("Accuracy:", accuracy)
+    print("Accuracy:", accuracy)
 
-    Plot().plot_2d(x_test, y_pred, title="K Nearest Neighbors", accuracy=accuracy, legend_label=data.target_names)
+    Plot().plot_2d(x_test, y_pred, title="K Nearest Neighbors",
+                   accuracy=accuracy, legend_label=data.target_names)
 
 
 if __name__ == "__main__":

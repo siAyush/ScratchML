@@ -1,4 +1,4 @@
-import numpy as np 
+import numpy as np
 from sklearn import datasets
 import matplotlib.pyplot as plt
 from scratch_ml.unsupervised_learning import PCA

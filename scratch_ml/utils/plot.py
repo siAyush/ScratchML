@@ -1,17 +1,16 @@
 import numpy as np
 import progressbar
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 from scratch_ml.utils import covariance_matrix
 
 
-bar_widget = ['Training: ', progressbar.Percentage(), ' ', 
+bar_widget = ['Training: ', progressbar.Percentage(), ' ',
               progressbar.Bar(marker="#", left="[", right="]"), ' ', progressbar.ETA()]
 
 
 class Plot():
     def __init__(self):
         self.cmap = plt.get_cmap("plasma")
-    
 
     def _transfrom(self, x, dim):
         covariance = covariance_matrix(x)
@@ -21,7 +20,6 @@ class Plot():
         eigenvectors = np.atleast_1d(eigenvectors[:, idx])[:, :dim]
         x_new = x.dot(eigenvectors)
         return x_new
-
 
     def plot_2d(self, x, y=None, title=None, accuracy=None, legend_label=None):
         """Plot the dataset x in 2D using PCA"""
@@ -41,7 +39,7 @@ class Plot():
         # plot leagend
         if legend_label is not None:
             plt.legend(class_dist, legend_label, loc=1)
-        
+
         # plot title
         if title:
             if accuracy:
@@ -50,15 +48,14 @@ class Plot():
                 plt.title("Accuracy : {:.2f}".format(per), fontsize=10)
             else:
                 plt.title(title)
-        
+
         # Axis
         plt.xlabel('Principal Component 1')
         plt.ylabel('Principal Component 2')
-        
-        plt.show()
-    
 
-    def plot_3d(self, x ,y=None):
+        plt.show()
+
+    def plot_3d(self, x, y=None):
         """Plot the dataset x in 3D using PCA"""
         x_transformed = self._transfrom(x, dim=3)
         x1 = x_transformed[:, 0]

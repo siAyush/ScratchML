@@ -1,4 +1,4 @@
-import numpy as np 
+import numpy as np
 from scratch_ml.utils import euclidean_distance
 
 
@@ -6,10 +6,10 @@ class KMeans():
     """A simple clustering method that forms k clusters by iteratively reassigning
     samples to the closest centroids and after that moves the centroids to the center
     of the new formed clusters."""
+
     def __init__(self, k=2, iterations=500):
         self.k = k
         self.iterations = iterations
-        
 
     def _init_random_centroids(self, x):
         """Initialize the centroids"""
@@ -19,7 +19,6 @@ class KMeans():
             centroid = x[np.random.choice(range(n_samples))]
             centroids[i] = centroid
         return centroids
-
 
     def _closest_centroid(self, sample, centroids):
         """Return the index of the closest centroid to the sample"""
@@ -32,7 +31,6 @@ class KMeans():
                 closest_dist = distance
         return closest_idx
 
-
     def _create_clusters(self, centroids, x):
         """Assign the samples to the closest centroids to create clusters"""
         clusters = [[] for _ in range(self.k)]
@@ -40,7 +38,6 @@ class KMeans():
             centroid_idx = self._closest_centroid(sample, centroids)
             clusters[centroid_idx].append(sample_idx)
         return clusters
-
 
     def _calculate_centroids(self, clusters, x):
         """Calculate new centroids"""
@@ -51,7 +48,6 @@ class KMeans():
             centroids[i] = centroid
         return centroids
 
-
     def _get_cluster_labels(self, clusters, x):
         """Classify samples as the index of their clusters"""
         y_pred = np.zeros(np.shape(x)[0])
@@ -59,7 +55,6 @@ class KMeans():
             for sample_i in cluster:
                 y_pred[sample_i] = cluster_i
         return y_pred
-
 
     def predict(self, x):
         centroids = self._init_random_centroids(x)

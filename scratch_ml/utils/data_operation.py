@@ -20,8 +20,8 @@ def accuracy_score(y_true, y_pred):
 def normalize(v):
     """Normalize the dataset"""
     norm = np.linalg.norm(v)
-    if norm == 0: 
-       return v
+    if norm == 0:
+        return v
     return v / norm
 
 
@@ -32,12 +32,12 @@ def shuffel_data(x, y, seed=None):
     index = np.arange(x.shape[0])
     np.random.shuffle(index)
     return x[index], y[index]
-    
+
 
 def train_test_split(x, y, test_size=0.25, shuffel=True, seed=None):
     """Split the data into train and test sets"""
     if shuffel:
-        x, y = shuffel_data(x,y, seed)
+        x, y = shuffel_data(x, y, seed)
     split_i = int(len(y)*test_size)
     x_train, x_test = x[:split_i], x[split_i:]
     y_train, y_test = y[:split_i], y[split_i:]
@@ -64,7 +64,7 @@ def calculate_std_dev(x):
     return std_dev
 
 
-def covariance_matrix(x,y=None):
+def covariance_matrix(x, y=None):
     """Calculate the covariance matrix"""
     if y is None:
         y = x
@@ -87,7 +87,7 @@ def correlation_matrix(x, y=None):
 
 def calculate_entropy(y):
     """Calculate the entropy"""
-    log2 = lambda x : math.log(x) / math.log(2)
+    def log2(x): return math.log(x) / math.log(2)
     unique_labels = np.unique(y)
     entropy = 0
     for label in unique_labels:
@@ -102,10 +102,10 @@ def divide_on_feature(x, feature_i, threshold):
         the given threshold."""
     split_func = None
     if isinstance(threshold, int) or isinstance(threshold, float):
-        split_func = lambda sample : sample[feature_i] >= threshold
+        def split_func(sample): return sample[feature_i] >= threshold
     else:
-        split_func = lambda sample : sample[feature_i] == threshold     
-        
+        def split_func(sample): return sample[feature_i] == threshold
+
     x_1 = np.array([sample for sample in x if split_func(sample)])
     x_2 = np.array([sample for sample in x if not split_func(sample)])
     return np.array([x_1, x_2], dtype=object)
@@ -132,7 +132,7 @@ def get_random_subsets(x, y, n_subsets, replacements=True):
     if replacements:
         subsample_size = n_samples      # 100% with replacements
     for i in range(n_subsets):
-        idx = np.random.choice(range(n_samples), size=np.shape(range(subsample_size)), 
+        idx = np.random.choice(range(n_samples), size=np.shape(range(subsample_size)),
                                replace=replacements)
         x = x_y[idx][:, :-1]
         y = x_y[idx][:, -1]

@@ -11,14 +11,16 @@ def main():
     y = to_categorical(y)
     x_train, x_test, y_train, y_test = train_test_split(x, y, seed=1)
 
-    clf = MultilayerPerceptron(n_hidden=16, n_iterations=1000, learning_rate=0.01)
+    clf = MultilayerPerceptron(
+        n_hidden=16, n_iterations=1000, learning_rate=0.01)
     clf.fit(x_train, y_train)
     y_pred = np.argmax(clf.predict(x_test), axis=1)
     y_test = np.argmax(y_test, axis=1)
     accuracy = accuracy_score(y_test, y_pred)
-    print ("Accuracy:", accuracy)
+    print("Accuracy:", accuracy)
 
-    Plot().plot_2d(x_test, y_pred, title="Multilayer Perceptron", accuracy=accuracy, legend_label=np.unique(y))
+    Plot().plot_2d(x_test, y_pred, title="Multilayer Perceptron",
+                   accuracy=accuracy, legend_label=np.unique(y))
 
 
 if __name__ == "__main__":
