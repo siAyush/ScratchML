@@ -79,5 +79,16 @@ class NeuralNetwork():
         return self._forward_pass(x, training=False)
 
     def summary(self, name="Model Summary"):
-        """Print model name"""
-        pass
+        """Print model name."""
+        print(AsciiTable([[name]]).table)
+        print("Input Shape %s" % str(self.layers[0].input_shape))
+        table_data = [["Layer Type", "Parameters", "Output Shape"]]
+        total_params = 0
+        for layer in self.layers:
+            layer_name = layer.layer_name()
+            params = layer.parameters()
+            out_shape = layer.output_shape()
+            table_data.append([layer_name, str(params), str(out_shape)])
+            total_params += params
+        print(AsciiTable(table_data).table)
+        print("Total Parameters: %d\n" % total_params)
