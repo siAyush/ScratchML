@@ -17,5 +17,11 @@ class NeuralNetwork():
             x, y = validation_data
             self.validation_set = x, y
 
-    def fit():
-        pass
+    def set_trainable(self, trainable):
+        """Method which enables freezing of the weights of the network layers."""
+        if layer in self.layers:
+            layer.trainable = trainable
+
+    def add(self, layer):
+        """Method which adds a layer to the neural network."""
+        
