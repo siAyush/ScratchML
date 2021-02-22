@@ -1,15 +1,15 @@
 import numpy as np
-from numpy.core.fromnumeric import shape
 
 
 class Layer():
+    """Base Layer class."""
 
     def set_input_shape(self, shape):
-        """Sets the shape that the layer expects of the input"""
+        """Sets the shape that the layer expects of the input."""
         self.input_shape = shape
 
     def output_shape(self):
-        """The shape of the output produced by forward_pass"""
+        """The shape of the output produced by forward_pass."""
         return NotImplementedError()
 
     def layer_name(self):
@@ -17,13 +17,13 @@ class Layer():
         return self.__class__.__name__
 
     def parameters(self):
-        """ The number of trainable parameters used by the layer"""
+        """ The number of trainable parameters used by the layer."""
         return 0
 
     def forward_pass(self, x, training):
-        """Propogates the data forward in the network"""
+        """Propogates the data forward in the network."""
         return NotImplementedError()
 
     def backward_pass(self, gradient):
-        """ Propogates the gradient backwards in the network"""
+        """ Propogates the gradient backwards in the network."""
         return NotImplementedError()

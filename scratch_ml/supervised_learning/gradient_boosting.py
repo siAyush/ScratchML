@@ -6,8 +6,8 @@ from scratch_ml.utils import SquareLoss, CrossEntropy, to_categorical, bar_widge
 
 class GradientBoosting():
     """
-    Super class of GradientBoostingClassifier and GradientBoostinRegressor. 
-
+    Super class of GradientBoostingClassifier and GradientBoostinRegressor.
+    ----------------------------------------------------------------------
     n_estimators: The number of classification trees that are used.
     learning_rate: The step length that will be taken when following the negative gradient during training.
     min_samples_split: The minimum number of samples needed to make a split when building a tree.

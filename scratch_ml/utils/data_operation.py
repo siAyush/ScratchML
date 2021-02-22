@@ -1,6 +1,5 @@
 import numpy as np
 import math
-from itertools import combinations_with_replacement
 
 
 def euclidean_distance(x1, x2):
@@ -138,3 +137,13 @@ def get_random_subsets(x, y, n_subsets, replacements=True):
         y = x_y[idx][:, -1]
         subsets.append([x, y])
     return subsets
+
+
+def batch_iterator(x, y=None, batch_size=32):
+    n_sample = x.shape[0]
+    for i in np.arange(0, n_sample, batch_size):
+        begin, end = i, min(i+batch_size, n_sample)
+        if y != None:
+            yield x[begin:end], y[begin:end]
+        else:
+            x[begin:end]
