@@ -28,7 +28,7 @@ class Perceptron():
             y_pred = self.activation_function(linear_output)
             # Calculate the loss gradient w.r.t the input of the activation function
             error_gradient = self.loss.gradient(
-                y, y_pred) * self.activation_function.derivative(linear_output)
+                y, y_pred) * self.activation_function.gradient(linear_output)
             grad_wrt_weight = x.T.dot(error_gradient)
             grad_wrt_bias = np.sum(error_gradient, axis=0, keepdims=True)
             self.weight -= self.learning_rate * grad_wrt_weight

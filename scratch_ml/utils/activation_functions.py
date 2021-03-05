@@ -6,7 +6,7 @@ class Sigmoid():
         x = x.astype(float)
         return 1 / (1 + np.exp(-x))
 
-    def derivative(self, x):
+    def gradient(self, x):
         x = x.astype(float)
         return self.__call__(x) * (1 - self.__call__(x))
 
@@ -21,7 +21,7 @@ class Softmax():
         return p * (1 - p)
 
 
-class RELU():
+class ReLU():
     def __call__(self, x):
         return np.where(x >= 0, x, 0)
 
