@@ -104,3 +104,29 @@ class Activation(Layer):
 
     def output_shape(self):
         return self.input_shape
+
+
+class Dropout(Layer):
+    """A layer that randomly sets a fraction p(float) of the output units of the previous layer
+    to zero."""
+
+    def __init__(self, p=0.2):
+        self.p = p
+        self.trainable = True
+        self._mask = None
+        self.input_shape = None
+        self.n_units = None
+        self.pass_through = True
+
+    def forward_pass(self, x, training):
+        c = (1 - self.p)
+        if training:
+            self._mask = np.random.uniform(size=x.shape) > self.p
+            c = self._mask
+        return x * c
+    
+    def backward_pass(self, gradient):
+        return gradient * self._mask
+    
+    def output_shape(self):
+        return self.input_shape 
