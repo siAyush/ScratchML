@@ -143,7 +143,7 @@ def batch_iterator(x, y=None, batch_size=32):
     n_sample = x.shape[0]
     for i in np.arange(0, n_sample, batch_size):
         begin, end = i, min(i+batch_size, n_sample)
-        if y != None:
+        if y is not None:
             yield x[begin:end], y[begin:end]
         else:
             x[begin:end]
