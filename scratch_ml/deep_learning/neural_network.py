@@ -29,6 +29,9 @@ class NeuralNetwork():
         # to the output shape of the last added layer
         if self.layers:
             layer.set_input_shape(shape=self.layers[-1].output_shape())
+         # If the layer has weights that needs to be initialized
+        if hasattr(layer, "initialize"):
+            layer.initialize(optimizer=self.optimizer)
         self.layers.append(layer)
 
     def _forward_pass(self, x, training=True):
