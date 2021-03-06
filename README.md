@@ -33,6 +33,29 @@ Deep Learning
 
 - [Perceptron](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deep_learning/perceptron.py)
 - [Multilayer Perceptron](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deep_learning/multilayer_perceptron.py)
+- [Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deep_learning/neural_network.py)
+
+- [Layers](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/deep_learning/layers.py)
+
+  - Activation Layer
+  - Average Pooling Layer
+  - Batch Normalization Layer
+  - Constant Padding Layer
+  - Convolutional Layer
+  - Dropout Layer
+  - Flatten Layer
+  - Fully-Connected (Dense) Layer
+  - Fully-Connected RNN Layer
+  - Max Pooling Layer
+  - Reshape Layer
+  - Up Sampling Layer
+  - Zero Padding Layer
+
+- Models
+  - [Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/neural_network.py)
+  - Convolutional Neural Network
+  - Recurrent Neural Network
+  - Generative Adversarial Network
 
 ## Installation
 

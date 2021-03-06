@@ -76,6 +76,16 @@ class Dense(Layer):
         return (self.n_units, )
 
 
+class RNN(Layer):
+    """Fully Connected RNN layer."""
+    pass
+
+
+class Conv2D(Layer):
+    """2D Convolution Layer"""
+    pass
+
+
 activation_functions = {
     'relu': ReLU,
     'sigmoid': Sigmoid,
@@ -124,9 +134,9 @@ class Dropout(Layer):
             self._mask = np.random.uniform(size=x.shape) > self.p
             c = self._mask
         return x * c
-    
+
     def backward_pass(self, gradient):
         return gradient * self._mask
-    
+
     def output_shape(self):
-        return self.input_shape 
+        return self.input_shape
