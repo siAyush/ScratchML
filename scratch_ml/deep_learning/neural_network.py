@@ -51,7 +51,6 @@ class NeuralNetwork():
         return loss, acc
 
     def fit(self, x, y, n_epochs, batch_size):
-        """Trains the model for a fixed number of epochs."""
         for _ in self.progressbar(range(n_epochs)):
             batch_error = []
             for X_batch, y_batch in batch_iterator(x, y, batch_size=batch_size):

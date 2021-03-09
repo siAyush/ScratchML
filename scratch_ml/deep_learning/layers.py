@@ -1,8 +1,6 @@
-from typing import get_type_hints
 import numpy as np
 import math
 import copy
-from scratch_ml.utils import activation_functions
 from scratch_ml.utils import Sigmoid, ReLU, LeakyReLU, Softmax, TanH
 
 
@@ -58,7 +56,7 @@ class Dense(Layer):
     def parameters(self):
         return np.prod(self.w.shape) + np.prod(self.w0.shape)
 
-    def forward_pass(self, x, training):
+    def forward_pass(self, x, training=True):
         self.layer_input = x
         return x.dot(self.w) + self.w0
 
@@ -103,9 +101,9 @@ class Activation(Layer):
         self.trainable = True
 
     def layer_name(self):
-        return "Activation %s" % (self.activation_func.__class__.__name__)
+        return self.activation_func.__class__.__name__
 
-    def forward_pass(self, x, training):
+    def forward_pass(self, x, training=True):
         self.layer_input = x
         return self.activation_func(x)
 
@@ -128,7 +126,7 @@ class Dropout(Layer):
         self.n_units = None
         self.pass_through = True
 
-    def forward_pass(self, x, training):
+    def forward_pass(self, x, training=True):
         c = (1 - self.p)
         if training:
             self._mask = np.random.uniform(size=x.shape) > self.p
@@ -140,3 +138,50 @@ class Dropout(Layer):
 
     def output_shape(self):
         return self.input_shape
+
+
+class Flatten(Layer):
+    """Turns a multidimensional matrix into two-dimensional."""
+
+    def __init__(self, input_shape=None):
+        self.input_shape = input_shape
+        self.trainable = True
+        self.prev_shape = None
+
+    def forward_pass(self, x, training=True):
+        self.prev_shape = x.shape
+        return x.reshape((x.shape[0], -1))
+
+    def backward_pass(self, gradient):
+        return gradient.reshape(self.prev_shape)
+
+    def output_shape(self):
+        return (np.prod(self.input_shape),)
+
+
+class Reshape(Layer):
+    """Reshapes the input tensor into specified shape.
+    shape : tuple
+        The shape which the input shall be reshaped to.
+    """
+
+    def __init__(self, shape, input_shape=None):
+        self.input_shape = input_shape
+        self.shape = shape
+        self.trainable = True
+        self.prev_shape = None
+
+    def forward_pass(self, x, training=True):
+        self.prev_shape = x.shape
+        return x.reshape((x.shape[0], ) + self.shape)
+
+    def backward_pass(self, gradient):
+        return gradient.reshape(self.prev_shape)
+
+    def output_shape(self):
+        return self.shape
+
+
+class PoolingLayer(Layer):
+    """A parent class of MaxPooling and AveragePooling."""
+    pass
