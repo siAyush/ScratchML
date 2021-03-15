@@ -76,7 +76,40 @@ class Dense(Layer):
 
 class RNN(Layer):
     """Fully Connected RNN layer."""
-    pass
+
+    def __init__(self, n_units, activation='tanh', bptt=5, input_shape=None):
+        self.input_shape = input_shape
+        self.n_units = n_units
+        self.activation = activation_functions[activation]()
+        self.trainable = True
+        self.bptt = bptt  # Backpropagation Through Time = bppt
+        self.W = None  # Weight of the previous state
+        self.V = None  # Weight of the output
+        self.U = None  # Weight of the input
+
+    def initialize(self, optimizer):
+        timesteps, input_dim = self.input_shape
+        limit = 1 / math.sqrt(input_dim)
+        self.U = np.random.uniform(-limit, limit, (self.n_units, input_dim))
+        limit = 1 / math.sqrt(self.n_units)
+        self.V = np.random.uniform(-limit, limit, (input_dim, self.n_units))
+        self.W = np.random.uniform(-limit, limit, (self.n_units, self.n_units))
+        # Weight optimizers
+        self.U_opt = copy.copy(optimizer)
+        self.V_opt = copy.copy(optimizer)
+        self.W_opt = copy.copy(optimizer)
+
+    def parameters(self):
+        return np.prod(self.U.shape) + np.prod(self.V.shape)+np.prod(self.W.shape)
+
+    def forward_pass(self, x, training=True):
+        pass
+
+    def backward_pass(self, gradient):
+        pass
+
+    def output_shape(self):
+        return self.input_shape
 
 
 class Conv2D(Layer):
@@ -253,7 +286,7 @@ def determine_padding(filter_shape, output_shape="same"):
     """Method which calculates the padding based on the specified output shape
        and the shape of the filters."""
     if output_shape == "valid":
-        return (0, 0)(0, 0)
+        return (0, 0), (0, 0)
     elif output_shape == "same":
         filter_height, filter_width = filter_shape
         # output_height = (height + pad_h - filter_height) / stride + 1
