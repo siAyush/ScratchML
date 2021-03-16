@@ -1,6 +1,8 @@
 import numpy as np
 import math
 import copy
+
+from numpy.lib.function_base import gradient
 from scratch_ml.utils import Sigmoid, ReLU, LeakyReLU, Softmax, TanH
 
 
@@ -100,13 +102,58 @@ class RNN(Layer):
         self.W_opt = copy.copy(optimizer)
 
     def parameters(self):
-        return np.prod(self.U.shape) + np.prod(self.V.shape)+np.prod(self.W.shape)
+        return np.prod(self.U.shape) + np.prod(self.V.shape) + np.prod(self.W.shape)
 
     def forward_pass(self, x, training=True):
-        pass
+        self.layer_input = x
+        batch_size, timesteps, input_dim = x.shape
+
+        # Save these values for use in backprop.
+        self.state_input = np.zeros((batch_size, timesteps, self.n_units))
+        self.states = np.zeros((batch_size, timesteps+1, self.n_units))
+        self.outputs = np.zeros((batch_size, timesteps, input_dim))
+        # Set last time step to zero for calculation of the state_input at time step zero
+        self.states[:, -1] = np.zeros((batch_size, self.n_units))
+
+        for t in range(timesteps):
+            self.state_input[:, t] = x[:, t].dot(
+                self.U.T) + self.states[:, t-1].dot(self.W.T)
+            self.states[:, t] = self.activation(self.state_input[:, t])
+            self.outputs[:, t] = self.states[:, t].dot(self.V.T)
+
+        return self.outputs
 
     def backward_pass(self, gradient):
-        pass
+        _, timesteps, _ = gradient.shape
+
+        # Variables where we save the accumulated gradient
+        grad_U = np.zeros(self.U)
+        grad_V = np.zeros(self.V)
+        grad_W = np.zeros(self.W)
+        accum_grad_next = np.zeros(gradient)
+
+        for t in reversed(range(timesteps)):
+            # Update gradient w.r.t V at time step t
+            grad_V += gradient[:, t].T.dot(self.states[:, t])
+            # Calculate the gradient w.r.t the state input
+            grad_wrt_state = gradient[:, t].dot(
+                self.V) * self.activation.gradient(self.state_input[:, t])
+            # Gradient w.r.t the layer input
+            accum_grad_next[:, t] = grad_wrt_state.dot(self.U)
+            # Update gradient w.r.t W and U by backprop. from time step t for at most
+            # self.bptt_trunc number of time steps
+            for t_ in reversed(np.arange(max(0, t - self.bptt_trunc), t+1)):
+                grad_U += grad_wrt_state.T.dot(self.layer_input[:, t_])
+                grad_W += grad_wrt_state.T.dot(self.states[:, t_-1])
+                # Calculate gradient w.r.t previous state
+                grad_wrt_state = grad_wrt_state.dot(
+                    self.W) * self.activation.gradient(self.state_input[:, t_-1])
+
+        self.U = self.U_opt.update(self.U, grad_U)
+        self.V = self.V_opt.update(self.V, grad_V)
+        self.W = self.W_opt.update(self.W, grad_W)
+
+        return accum_grad_next
 
     def output_shape(self):
         return self.input_shape
