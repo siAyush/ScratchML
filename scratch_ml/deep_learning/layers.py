@@ -1,8 +1,6 @@
 import numpy as np
 import math
 import copy
-
-from numpy.lib.function_base import gradient
 from scratch_ml.utils import Sigmoid, ReLU, LeakyReLU, Softmax, TanH
 
 
@@ -127,10 +125,10 @@ class RNN(Layer):
         _, timesteps, _ = gradient.shape
 
         # Variables where we save the accumulated gradient
-        grad_U = np.zeros(self.U)
-        grad_V = np.zeros(self.V)
-        grad_W = np.zeros(self.W)
-        accum_grad_next = np.zeros(gradient)
+        grad_U = np.zeros_like(self.U)
+        grad_V = np.zeros_like(self.V)
+        grad_W = np.zeros_like(self.W)
+        accum_grad_next = np.zeros_like(gradient)
 
         for t in reversed(range(timesteps)):
             # Update gradient w.r.t V at time step t
@@ -142,7 +140,7 @@ class RNN(Layer):
             accum_grad_next[:, t] = grad_wrt_state.dot(self.U)
             # Update gradient w.r.t W and U by backprop. from time step t for at most
             # self.bptt_trunc number of time steps
-            for t_ in reversed(np.arange(max(0, t - self.bptt_trunc), t+1)):
+            for t_ in reversed(np.arange(max(0, t - self.bptt, t+1))):
                 grad_U += grad_wrt_state.T.dot(self.layer_input[:, t_])
                 grad_W += grad_wrt_state.T.dot(self.states[:, t_-1])
                 # Calculate gradient w.r.t previous state

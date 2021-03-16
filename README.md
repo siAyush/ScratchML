@@ -54,7 +54,7 @@ Deep Learning
 - Models
   - [Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/neural_network.py)
   - Convolutional Neural Network
-  - Recurrent Neural Network
+  - [Recurrent Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/recurrent_neural_network.py)
   - Generative Adversarial Network
 
 ## Installation
