@@ -163,11 +163,11 @@ class Conv2D(Layer):
 
 
 activation_functions = {
-    'relu': ReLU,
-    'sigmoid': Sigmoid,
-    'softmax': Softmax,
-    'leaky_relu': LeakyReLU,
-    'tanh': TanH,
+    "relu": ReLU,
+    "sigmoid": Sigmoid,
+    "softmax": Softmax,
+    "leaky_relu": LeakyReLU,
+    "tanh": TanH,
 }
 
 
@@ -258,6 +258,43 @@ class Reshape(Layer):
 
     def output_shape(self):
         return self.shape
+
+
+class BatchNormalization(Layer):
+    pass
+
+
+class UpSampling2D(Layer):
+    """Up sampling of the input repeats the rows and
+    columns of the data."""
+
+    def __init__(self, size=(2, 2), input_shape=None):
+        self.prev_shape = None
+        self.trainable = True
+        self.size = size
+        self.input_shape = input_shape
+
+    def forward_pass(self, x, training=True):
+        self.prev_shape = x.shape
+        x_new = x.repeat(self.size[0], axis=2).repeat(self.size[1], axis=3)
+        return x_new
+
+    def backward_pass(self, gradient):
+        # Down sample input to previous shape
+        gradient = gradient[:, :, ::self.size[0], ::self.size[1]]
+        return gradient
+
+    def output_shape(self):
+        channels, height, width = self.input_shape
+        return channels, self.size[0] * height, self.size[1] * width
+
+
+class ConstantPadding2D(Layer):
+    pass
+
+
+class ZeroPadding2D(ConstantPadding2D):
+    pass
 
 
 class PoolingLayer(Layer):
@@ -366,7 +403,7 @@ def image_to_column(images, filter_shape, stride, output_shape="same"):
     pad_h, pad_w = determine_padding(filter_shape, output_shape)
     # Add padding to the image
     images_padded = np.pad(
-        images, ((0, 0), (0, 0), pad_h, pad_w), mode='constant')
+        images, ((0, 0), (0, 0), pad_h, pad_w), mode="constant")
     # Calculate the indices where the dot products are to be applied between weights
     # and the image
     k, i, j = get_im2col_indices(
@@ -380,7 +417,7 @@ def image_to_column(images, filter_shape, stride, output_shape="same"):
     return cols
 
 
-def column_to_image(cols, images_shape, filter_shape, stride, output_shape='same'):
+def column_to_image(cols, images_shape, filter_shape, stride, output_shape="same"):
     batch_size, channels, height, width = images_shape
     pad_h, pad_w = determine_padding(filter_shape, output_shape)
     height_padded = height + np.sum(pad_h)
