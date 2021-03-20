@@ -159,7 +159,78 @@ class RNN(Layer):
 
 class Conv2D(Layer):
     """2D Convolution Layer"""
-    pass
+
+    def __init__(self, n_filters, filter_shape, input_shape=None, padding='same', stride=1):
+        self.n_filters = n_filters
+        self.filter_shape = filter_shape
+        self.padding = padding
+        self.stride = stride
+        self.input_shape = input_shape
+        self.trainable = True
+
+    def initialize(self, optimizer):
+        # Initialize the weights
+        filter_height, filter_width = self.filter_shape
+        channels = self.input_shape[0]
+        limit = 1 / math.sqrt(np.prod(self.filter_shape))
+        self.w = np.random.uniform(-limit, limit, size=(self.n_filters,
+                                                        channels, filter_height, filter_width))
+        self.w0 = np.zeros((self.n_filters, 1))
+        self.w_opt = copy.copy(optimizer)
+        self.w0_opt = copy.copy(optimizer)
+
+    def parameters(self):
+        return np.prod(self.w.shape) + np.prod(self.w0.shape)
+
+    def forward_pass(self, x, training=True):
+        batch_size, channels, height, width = x.shape
+        self.layer_input = x
+        # Turn image shape into column shape
+        self.x_col = image_to_column(
+            x, self.filter_shape, stride=self.stride, output_shape=self.padding)
+        # Turn weights into column shape
+        self.w_col = self.w.reshape((self.n_filters, -1))
+        output = self.w_col.dot(self.X_col) + self.w0
+        # Reshape into (n_filters, out_height, out_width, batch_size)
+        output = output.reshape(self.output_shape() + (batch_size, ))
+        # Redistribute axises so that batch size comes first
+        return output.transpose(3, 0, 1, 2)
+
+    def backward_pass(self, gradient):
+        # Reshape accumulated gradient into column shape
+        gradient = gradient.transpose(1, 2, 3, 0).reshape(self.n_filters, -1)
+
+        if self.trainable:
+            # Take dot product between column shaped accum. gradient and column shape
+            # layer input to determine the gradient at the layer with respect to layer weights
+            grad_w = gradient.dot(self.x_col.T).reshape(self.w.shape)
+            # The gradient with respect to bias terms is the sum similarly to in Dense layer
+            grad_w0 = np.sum(gradient, axis=1, keepdims=True)
+
+            # Update the layers weights
+            self.w = self.w_opt.update(self.w, grad_w)
+            self.w0 = self.w0_opt.update(self.w0, grad_w0)
+
+        # Recalculate the gradient which will be propogated back to prev. layer
+        gradient = self.w_col.T.dot(gradient)
+        # Reshape from column shape to image shape
+        gradient = column_to_image(gradient,
+                                   self.layer_input.shape,
+                                   self.filter_shape,
+                                   stride=self.stride,
+                                   output_shape=self.padding)
+
+        return gradient
+
+    def output_shape(self):
+        channels, height, width = self.input_shape
+        pad_h, pad_w = determine_padding(
+            self.filter_shape, output_shape=self.padding)
+        output_height = (height + np.sum(pad_h) -
+                         self.filter_shape[0]) / self.stride + 1
+        output_width = (width + np.sum(pad_w) -
+                        self.filter_shape[1]) / self.stride + 1
+        return self.n_filters, int(output_height), int(output_width)
 
 
 activation_functions = {
@@ -290,11 +361,58 @@ class UpSampling2D(Layer):
 
 
 class ConstantPadding2D(Layer):
-    pass
+    """Adds rows and columns of constant values to the input.
+    Parameters:
+    -----------
+    padding: tuple
+        The amount of padding along the height and width dimension of the input.
+        If (pad_h, pad_w) the same symmetric padding is applied along height and width dimension.
+        If ((pad_h0, pad_h1), (pad_w0, pad_w1)) the specified padding is added to beginning and end of
+        the height and width dimension.
+
+    padding_value: int or tuple
+        The value the is added as padding."""
+
+    def __init__(self, padding, padding_value=0):
+        self.padding = padding
+        self.trainable = True
+        if not isinstance(padding[0], tuple):
+            self.padding = ((padding[0], padding[0]), padding[1])
+        if not isinstance(padding[1], tuple):
+            self.padding = (self.padding[0], (padding[1], padding[1]))
+        self.padding_value = padding_value
+
+    def forward_pass(self, x, training=True):
+        output = np.pad(x,
+                        pad_width=((0, 0), (0, 0),
+                                   self.padding[0], self.padding[1]),
+                        mode="constant",
+                        constant_values=self.padding_value)
+        return output
+
+    def backward_pass(self, gradient):
+        pad_top, pad_left = self.padding[0][0], self.padding[1][0]
+        height, width = self.input_shape[1], self.input_shape[2]
+        gradient = gradient[:, :, pad_top:pad_top +
+                            height, pad_left:pad_left+width]
+        return gradient
+
+    def output_shape(self):
+        new_height = self.input_shape[1] + np.sum(self.padding[0])
+        new_width = self.input_shape[2] + np.sum(self.padding[1])
+        return (self.input_shape[0], new_height, new_width)
 
 
 class ZeroPadding2D(ConstantPadding2D):
-    pass
+    """Adds rows and columns of zero values to the input."""
+
+    def __init__(self, padding):
+        self.padding = padding
+        if isinstance(padding[0], int):
+            self.padding = ((padding[0], padding[0]), padding[1])
+        if isinstance(padding[1], int):
+            self.padding = (self.padding[0], (padding[1], padding[1]))
+        self.padding_value = 0
 
 
 class PoolingLayer(Layer):
@@ -432,5 +550,4 @@ def column_to_image(cols, images_shape, filter_shape, stride, output_shape="same
     cols = cols.transpose(2, 0, 1)
     # Add column content to the images at the indices
     np.add.at(images_padded, (slice(None), k, i, j), cols)
-    # Return image without padding
     return images_padded[:, :, pad_h[0]:height+pad_h[0], pad_w[0]:width+pad_w[0]]
