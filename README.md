@@ -44,18 +44,18 @@ Deep Learning
   - Convolutional Layer
   - Dropout Layer
   - Flatten Layer
-  - Fully-Connected (Dense) Layer
-  - Fully-Connected RNN Layer
+  - Fully-Connected Layer
   - Max Pooling Layer
   - Reshape Layer
+  - RNN Layer
   - Up Sampling Layer
   - Zero Padding Layer
 
 - Models
   - [Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/neural_network.py)
-  - Convolutional Neural Network
+  - [Convolutional Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/convolutional_neural_network.py)
   - [Recurrent Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/recurrent_neural_network.py)
-  - Generative Adversarial Network
+  - [Generative Adversarial Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/generative_adversarial_network.py)
 
 ## Installation
 
@@ -108,3 +108,13 @@ $ python3 scratch_ml/demo/neural_network.py
 ![Neural Network](./images/neural_network.png)
 
 ![Neural Network](./images/neural_network_error.png)
+
+### Convolutional Neural Network 
+
+```
+$ python3 scratch_ml/demo/convolutional_neural_network.py
+```
+
+![CNN](./images/cnn_2.png)
+
+![CNN](./images/cnn.png)

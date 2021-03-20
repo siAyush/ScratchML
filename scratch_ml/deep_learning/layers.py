@@ -190,7 +190,7 @@ class Conv2D(Layer):
             x, self.filter_shape, stride=self.stride, output_shape=self.padding)
         # Turn weights into column shape
         self.w_col = self.w.reshape((self.n_filters, -1))
-        output = self.w_col.dot(self.X_col) + self.w0
+        output = self.w_col.dot(self.x_col) + self.w0
         # Reshape into (n_filters, out_height, out_width, batch_size)
         output = output.reshape(self.output_shape() + (batch_size, ))
         # Redistribute axises so that batch size comes first
@@ -332,7 +332,70 @@ class Reshape(Layer):
 
 
 class BatchNormalization(Layer):
-    pass
+    """Batch normalization"""
+
+    def __init__(self, momentum=0.99):
+        self.momentum = momentum
+        self.trainable = True
+        self.eps = 0.01
+        self.running_mean = None
+        self.running_var = None
+
+    def initialize(self, optimizer):
+        self.gamma = np.ones(self.input_shape)
+        self.beta = np.zeros(self.input_shape)
+        self.gamma_opt = copy.copy(optimizer)
+        self.beta_opt = copy.copy(optimizer)
+
+    def parameters(self):
+        return np.prod(self.gamma.shape) + np.prod(self.beta.shape)
+
+    def forward_pass(self, x, training=True):
+        # Initialize running mean and variance if first run
+        if self.running_mean is None:
+            self.running_mean = np.mean(x, axis=0)
+            self.running_var = np.var(x, axis=0)
+
+        if training and self.trainable:
+            mean = np.mean(x, axis=0)
+            var = np.var(x, axis=0)
+            self.running_mean = self.momentum * \
+                self.running_mean + (1 - self.momentum) * mean
+            self.running_var = self.momentum * \
+                self.running_var + (1 - self.momentum) * var
+        else:
+            mean = self.running_mean
+            var = self.running_var
+
+        # Statistics saved for backward pass
+        self.x_centered = x - mean
+        self.stddev_inv = 1 / np.sqrt(var + self.eps)
+        x_norm = self.x_centered * self.stddev_inv
+        output = self.gamma * x_norm + self.beta
+
+        return output
+
+    def backward_pass(self, gradient):
+        gamma = self.gamma
+        if self.trainable:
+            x_norm = self.x_centered * self.stddev_inv
+            grad_gamma = np.sum(gradient * x_norm, axis=0)
+            grad_beta = np.sum(gradient, axis=0)
+            self.gamma = self.gamma_opt.update(self.gamma, grad_gamma)
+            self.beta = self.beta_opt.update(self.beta, grad_beta)
+        batch_size = gradient.shape[0]
+
+        # The gradient of the loss with respect to the layer inputs.
+        gradient = (1 / batch_size) * gamma * self.stddev_inv * (
+            batch_size * gradient
+            - np.sum(gradient, axis=0)
+            - self.x_centered * self.stddev_inv**2 *
+            np.sum(gradient * self.x_centered, axis=0))
+
+        return gradient
+
+    def output_shape(self):
+        return self.input_shape
 
 
 class UpSampling2D(Layer):
