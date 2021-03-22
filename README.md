@@ -52,10 +52,12 @@ Deep Learning
   - Zero Padding Layer
 
 - Models
-  - [Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/neural_network.py)
+
+  - [Autoencoder](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/autoencoder.py)
   - [Convolutional Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/convolutional_neural_network.py)
-  - [Recurrent Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/recurrent_neural_network.py)
   - [Generative Adversarial Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/generative_adversarial_network.py)
+  - [Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/neural_network.py)
+  - [Recurrent Neural Network](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/demo/recurrent_neural_network.py)
 
 ## Installation
 
@@ -109,7 +111,7 @@ $ python3 scratch_ml/demo/neural_network.py
 
 ![Neural Network](./images/neural_network_error.png)
 
-### Convolutional Neural Network 
+### Convolutional Neural Network
 
 ```
 $ python3 scratch_ml/demo/convolutional_neural_network.py

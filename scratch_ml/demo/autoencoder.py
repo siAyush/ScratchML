@@ -8,19 +8,18 @@ from scratch_ml.deep_learning.layers import Dense, Dropout, Conv2D, Flatten, Act
 from scratch_ml.utils import to_categorical, train_test_split, CrossEntropy
 
 
-class GAN():
-    """Generative Adversarial Network with fully connected neural networks as
-    Generator and Discriminator."""
+class Autoencoder():
+    """Autoencoder with deep fully-connected neural networks."""
 
     def __init__(self):
         pass
 
-    def generator():
+    def encoder():
         pass
 
-    def discriminator():
+    def decoder():
         pass
 
 
 if __name__ == '__main__':
-    gan = GAN()
+    ae = Autoencoder()
