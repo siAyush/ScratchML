@@ -93,22 +93,29 @@ $ python3 scratch_ml/demo/k_nearest_neighbor.py
 ```
 $ python3 scratch_ml/demo/linear_regression.py
 ```
+<div align="center">
 
 ![Linear Regression](./images/linear_regression.png)
+
+</div>
 
 ### Gradient Boosting Classifier
 
 ```
 $ python3 scratch_ml/demo/gradient_boosting_classifier.py
 ```
+<div align="center">
 
 ![Gradient Boosting Classifier](./images/gradient_boosting_classifier.png)
+
+</div>
 
 ### Neural Network
 
 ```
 $ python3 scratch_ml/demo/neural_network.py
 ```
+<div align="center">
 
 ![Neural Network](./images/neural_network_summary.png)
 
@@ -116,12 +123,17 @@ $ python3 scratch_ml/demo/neural_network.py
 
 ![Neural Network](./images/neural_network_error.png)
 
+</div>
+
 ### Convolutional Neural Network
 
 ```
 $ python3 scratch_ml/demo/convolutional_neural_network.py
 ```
+<div align="center">
 
 ![CNN](./images/cnn_2.png)
 
 ![CNN](./images/cnn.png)
+
+</div>
