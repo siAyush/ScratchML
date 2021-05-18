@@ -27,6 +27,7 @@ Supervised Learning
 - [Naive Bayes](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/naive_bayes.py)
 - [Random Forest](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/random_forest.py)
 - [Ridge Regression](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/regression.py)
+- [Support Vector Machine](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/support_vector_machine.py)
 - [XGBoost](https://github.com/siAyush/ScratchML/blob/main/scratch_ml/supervised_learning/xgboost.py)
 
 Unsupervised Learning

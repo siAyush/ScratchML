@@ -8,3 +8,4 @@ from .adaboost import Adaboost
 from .gradient_boosting import GradientBoostingRegressor, GradientBoostingClassifier
 from .xgboost import XGBoost
 from .random_forest import RandomForest
+from .support_vector_machine import SupportVectorMachine

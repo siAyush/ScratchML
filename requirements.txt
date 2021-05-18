@@ -5,3 +5,4 @@ pandas
 scipy
 progressbar33
 terminaltables
+cvxopt
