@@ -1,9 +1,12 @@
-<h1 align="center">Scratch ML</h1>
+<div align="center">
+    <img alt="License" src="images/ml.gif" />
+</div>
 
+<br>
 <p align="center">
     <img alt="Python" src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white"/>
-    <img alt="NumPy" src="https://img.shields.io/badge/numpy%20-%23013243.svg?&style=for-the-badge&logo=numpy&logoColor=white" />
-    <img alt="License" src="https://img.shields.io/github/license/siAyush/ScratchML?style=for-the-badge" />
+    <img alt="NumPy" src="https://img.shields.io/badge/numpy%20-%23013243.svg?&style=for-the-badge&logo=numpy&logoColor=white"/>
+    <img alt="License" src="https://img.shields.io/github/license/siAyush/ScratchML?style=for-the-badge"/>
 </p>
 
 ## About
